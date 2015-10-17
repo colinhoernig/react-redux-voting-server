@@ -81,57 +81,33 @@ describe('application logic', () => {
 
     it('creates a tally for a voted entry', () => {
       const state = Map({
-        vote: Map({
-          pair: List.of(
-            'Jeremy Jones',
-            'Alex Andrews'
-          )
-        }),
-        entries: List()
+        pair: List.of('Jeremy Jones', 'Alex Andrews')
       });
       const nextState = vote(state, 'Jeremy Jones');
 
       expect(nextState).to.equal(Map({
-        vote: Map({
-          pair: List.of(
-            'Jeremy Jones',
-            'Alex Andrews'
-          ),
-          tally: Map({
-            'Jeremy Jones': 1
-          })
-        }),
-        entries: List()
+        pair: List.of('Jeremy Jones', 'Alex Andrews'),
+        tally: Map({
+          'Jeremy Jones': 1
+        })
       }));
     });
 
     it('adds to existing tally for the voted entry', () => {
       const state = Map({
-        vote: Map({
-          pair: List.of(
-            'Jeremy Jones',
-            'Alex Andrews'
-          ),
-          tally: Map({
-            'Jeremy Jones': 5,
-            'Alex Andrews': 2
-          }),
-          entries: List()
+        pair: List.of('Jeremy Jones', 'Alex Andrews'),
+        tally: Map({
+          'Jeremy Jones': 5,
+          'Alex Andrews': 2
         })
       });
       const nextState = vote(state, 'Jeremy Jones');
 
       expect(nextState).to.equal(Map({
-        vote: Map({
-          pair: List.of(
-            'Jeremy Jones',
-            'Alex Andrews'
-          ),
-          tally: Map({
-            'Jeremy Jones': 6,
-            'Alex Andrews': 2
-          }),
-          entries: List()
+        pair: List.of('Jeremy Jones', 'Alex Andrews'),
+        tally: Map({
+          'Jeremy Jones': 6,
+          'Alex Andrews': 2
         })
       }));
     });
