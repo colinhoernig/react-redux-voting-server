@@ -5,11 +5,11 @@ describe('immutability', () => {
 
   describe('a number', () => {
 
-    function increment(currentStat) {
+    function increment(currentState) {
       return currentState + 1;
     }
 
-    it('is immutable', () {
+    it('is immutable', () => {
       let state = 10;
       let nextState = increment(state);
 
@@ -45,8 +45,7 @@ describe('immutability', () => {
         'Travis Rice',
         'Joe Sexton',
         'Jeremy Jones',
-        'Alex Andrews',
-        'Nicolas Müller'
+        'Alex Andrews'
       ));
     });
 
@@ -55,10 +54,7 @@ describe('immutability', () => {
   describe('a tree', () => {
 
     function addItem(currentState, item) {
-      return currentState.update(
-        'items',
-        items.push(item);
-      );
+      return currentState.update('items', items => items.push(item));
     }
 
     it('is immutable', () => {
@@ -73,17 +69,21 @@ describe('immutability', () => {
       let nextState = addItem(state, 'Nicolas Müller');
 
       expect(nextState).to.equal(Map({
-        'Travis Rice',
-        'Joe Sexton',
-        'Jeremy Jones',
-        'Alex Andrews',
-        'Nicolas Müller'
+        items: List.of(
+          'Travis Rice',
+          'Joe Sexton',
+          'Jeremy Jones',
+          'Alex Andrews',
+          'Nicolas Müller'
+        )
       }));
       expect(state).to.equal(Map({
-        'Travis Rice',
-        'Joe Sexton',
-        'Jeremy Jones',
-        'Alex Andrews'
+        items: List.of(
+          'Travis Rice',
+          'Joe Sexton',
+          'Jeremy Jones',
+          'Alex Andrews'
+        )
       }));
     })
 

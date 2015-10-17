@@ -2,8 +2,6 @@ import { expect } from 'chai';
 import { List, Map } from 'immutable';
 import { setEntries, next, vote } from '../src/core';
 
-import { setEntries } from '../src/core';
-
 describe('application logic', () => {
 
   describe('setEntries', () => {
@@ -13,7 +11,12 @@ describe('application logic', () => {
       const entries = List.of('Travis Rice', 'Joe Sexton');
       const nextState = setEntries(state, entries);
 
-      expect(nextState).to.equal(Map({ 'Travis Rice', 'Joe Sexton' }));
+      expect(nextState).to.equal(Map({
+        entries: List.of(
+          'Travis Rice',
+          'Joe Sexton'
+        )
+      }));
     });
 
     it('converts to immutable', () => {
@@ -25,7 +28,7 @@ describe('application logic', () => {
         entries: List.of(
           'Travis Rice',
           'Joe Sexton'
-        );
+        )
       }));
     });
 
@@ -35,7 +38,11 @@ describe('application logic', () => {
 
     it('takes the next two entries under vote', () => {
       const state = Map({
-        entries: List.of('Jeremy Jones', 'Alex Andrews')
+        entries: List.of(
+          'Jeremy Jones',
+          'Alex Andrews',
+          'Nicolas Müller'
+        )
       });
       const nextState = next(state);
 
@@ -44,9 +51,9 @@ describe('application logic', () => {
           pair: List.of(
             'Jeremy Jones',
             'Alex Andrews'
-          ),
-          entries: List.of('Nicolas Müller')
-        })
+          )
+        }),
+        entries: List.of('Nicolas Müller')
       }));
     });
 
@@ -66,7 +73,7 @@ describe('application logic', () => {
       });
       const nextState = vote(state, 'Jeremy Jones');
 
-      expect(newState).to.equal(Map({
+      expect(nextState).to.equal(Map({
         vote: Map({
           pair: List.of(
             'Jeremy Jones',
