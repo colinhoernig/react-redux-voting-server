@@ -55,9 +55,9 @@ describe('immutability', () => {
   describe('a tree', () => {
 
     function addItem(currentState, item) {
-      return currentState.set(
+      return currentState.update(
         'items',
-        currentState.get('items').push(item)
+        items.push(item);
       );
     }
 
