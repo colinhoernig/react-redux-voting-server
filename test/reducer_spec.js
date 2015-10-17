@@ -57,6 +57,8 @@ describe('reducer', () => {
     }));
   });
 
+  // Make sure we can use reduce on the actions Map array
+  // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
   it('can be used with reduce', () => {
     const actions = [
       { type: 'SET_ENTRIES', entries: ['Jeremy Jones', 'Alex Andrews'] },
