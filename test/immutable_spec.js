@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 
 describe('immutability', () => {
 
@@ -31,17 +31,17 @@ describe('immutability', () => {
         'Joe Sexton',
         'Jeremy Jones',
         'Alex Andrews'
-        );
+      );
       let nextState = addItem(state, 'Nicolas Müller');
 
-      expect(nextState).toEqual(List.of(
+      expect(nextState).to.equal(List.of(
         'Travis Rice',
         'Joe Sexton',
         'Jeremy Jones',
         'Alex Andrews',
         'Nicolas Müller'
       ));
-      expect(state).toEqual(List.of(
+      expect(state).to.equal(List.of(
         'Travis Rice',
         'Joe Sexton',
         'Jeremy Jones',
@@ -49,6 +49,43 @@ describe('immutability', () => {
         'Nicolas Müller'
       ));
     });
+
+  });
+
+  describe('a tree', () => {
+
+    function addItem(currentState, item) {
+      return currentState.set(
+        'items',
+        currentState.get('items').push(item)
+      );
+    }
+
+    it('is immutable', () => {
+      let state = Map({
+        items: List.of(
+          'Travis Rice',
+          'Joe Sexton',
+          'Jeremy Jones',
+          'Alex Andrews'
+        )
+      });
+      let nextState = addItem(state, 'Nicolas Müller');
+
+      expect(nextState).to.equal(Map({
+        'Travis Rice',
+        'Joe Sexton',
+        'Jeremy Jones',
+        'Alex Andrews',
+        'Nicolas Müller'
+      }));
+      expect(state).to.equal(Map({
+        'Travis Rice',
+        'Joe Sexton',
+        'Jeremy Jones',
+        'Alex Andrews'
+      }));
+    })
 
   });
 
