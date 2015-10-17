@@ -118,6 +118,27 @@ describe('application logic', () => {
       }));
     });
 
+    it('puts winner of current vote back bottom of entries', () => {
+      const state = Map({
+        vote: Map({
+          pair: List.of('Jeremy Jones', 'Alex Andrews'),
+          tally: Map({
+            'Jeremy Jones': 5,
+            'Alex Andrews': 2
+          })
+        }),
+        entries: List.of('Travis Rice', 'Joe Sexton', 'Nicolas Müller')
+      });
+      const nextState = next(state);
+
+      expect(nextState).to.equal(Map({
+        vote: Map({
+          pair: List.of('Travis Rice', 'Joe Sexton')
+        }),
+        entries: List.of('Nicolas Müller', 'Jeremy Jones')
+      }));
+    });
+
   });
 
 });
