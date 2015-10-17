@@ -57,6 +57,24 @@ describe('application logic', () => {
       }));
     });
 
+    it('marks winner when just one entry is left', () => {
+      const state = Map({
+        vote: Map({
+          pair: List.of('Jeremy Jones', 'Alex Andrews'),
+          tally: Map({
+            'Jeremy Jones': 5,
+            'Alex Andrews': 2
+          })
+        }),
+        entries: List.of()
+      });
+      const nextState = next(state);
+
+      expect(nextState).to.equal(Map({
+        winner: 'Jeremy Jones'
+      }));
+    });
+
   });
 
   describe('vote', () => {
