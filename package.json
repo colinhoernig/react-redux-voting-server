@@ -1,7 +1,7 @@
 {
   "name": "react-redux-voting-server",
   "version": "0.1.0",
-  "description": "React/Redux playground",
+  "description": "React/Redux/Node voting server",
   "main": "index.js",
   "scripts": {
     "start": "babel-node index.js",
