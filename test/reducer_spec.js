@@ -50,10 +50,26 @@ describe('reducer', () => {
 
   it('has an initial state', () => {
     const action = { type: 'SET_ENTRIES', entries: ['Jeremy Jones'] };
-    const nextState = reduer(undefined, action);
+    const nextState = reducer(undefined, action);
 
     expect(nextState).to.equal(fromJS({
       entries: ['Jeremy Jones']
+    }));
+  });
+
+  it('can be used with reduce', () => {
+    const actions = [
+      { type: 'SET_ENTRIES', entries: ['Jeremy Jones', 'Alex Andrews'] },
+      { type: 'NEXT' },
+      { type: 'VOTE', entry: 'Jeremy Jones' },
+      { type: 'VOTE', entry: 'Alex Andrews' },
+      { type: 'VOTE', entry: 'Jeremy Jones' },
+      { type: 'NEXT' }
+    ];
+    const finalState = actions.reduce(reducer, Map());
+
+    expect(finalState).to.equal(fromJS({
+      winner: 'Jeremy Jones'
     }));
   });
 
